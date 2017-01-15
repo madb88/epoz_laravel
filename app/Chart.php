@@ -10,6 +10,16 @@ class Chart extends Model
       'title',
       'description',
       'medicines',
-      'published_at'
+
     ];
+
+    public function scopeApproved($query)
+    {
+      $query->where('approved', '=', 1);
+    }
+
+    public function scopeNotApproved($query)
+    {
+      $query->where('approved', '=', 0);
+    }
 }

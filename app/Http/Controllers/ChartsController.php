@@ -12,7 +12,7 @@ class ChartsController extends Controller
 {
     public function index()
     {
-        $charts = Chart::latest('published_at')->get();
+        $charts = Chart::latest('approved')->approved()->get();
 
         return view('charts.index', compact('charts'));
     }
@@ -31,10 +31,7 @@ class ChartsController extends Controller
 
     public function store()
     {
-        $input = Request::all();
-        $input['published_at'] = Carbon::now();
-        Chart::create($input);
-
+        Chart::create(Request::all());
         return redirect('charts');
     }
 }
