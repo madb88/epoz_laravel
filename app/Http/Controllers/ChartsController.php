@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests;
+use Request;
 use App\Chart;
+use Carbon\Carbon;
+
 
 class ChartsController extends Controller
 {
     public function index()
     {
-        $charts = Chart::all();
+        $charts = Chart::latest('published_at')->get();
 
         return view('charts.index', compact('charts'));
     }
@@ -19,5 +22,19 @@ class ChartsController extends Controller
         $chart = Chart::findOrFail($id);
 
         return view('charts.show', compact('chart'));
+    }
+
+    public function create()
+    {
+        return view('charts.create');
+    }
+
+    public function store()
+    {
+        $input = Request::all();
+        $input['published_at'] = Carbon::now();
+        Chart::create($input);
+
+        return redirect('charts');
     }
 }
