@@ -11,6 +11,13 @@ class ChartsController extends Controller
     {
         $charts = Chart::all();
 
-        return $charts;
+        return view('charts.index', compact('charts'));
+    }
+
+    public function show($id)
+    {
+        $chart = Chart::findOrFail($id);
+
+        return view('charts.show', compact('chart'));
     }
 }
