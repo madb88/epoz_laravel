@@ -10,7 +10,7 @@ class Chart extends Model
       'title',
       'description',
       'medicines',
-
+      'approved'
     ];
 
     public function scopeApproved($query)
