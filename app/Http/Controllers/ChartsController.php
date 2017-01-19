@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Chart;
 use Carbon\Carbon;
-use App\Http\Requests\CreateChartRequest;
+use App\Http\Requests\ChartRequest;
 
 
 class ChartsController extends Controller
@@ -47,7 +48,7 @@ class ChartsController extends Controller
      * @param CreateChartRequest $request
      * @return Response
      */
-    public function store(CreateChartRequest $request)
+    public function store(ChartRequest $request)
     {
         Chart::create($request->all());
         return redirect('charts');
@@ -58,5 +59,13 @@ class ChartsController extends Controller
       $chart = Chart::findOrFail($id);
 
       return view('charts.edit', compact('chart'));
+    }
+
+    public function update($id, ChartRequest $request)
+    {
+      $chart = Chart::findOrFail($id);
+      $chart->update($request->all());
+
+      return redirect('charts');
     }
 }
