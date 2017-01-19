@@ -52,4 +52,11 @@ class ChartsController extends Controller
         Chart::create($request->all());
         return redirect('charts');
     }
+
+    public function edit($id)
+    {
+      $chart = Chart::findOrFail($id);
+
+      return view('charts.edit', compact('chart'));
+    }
 }
