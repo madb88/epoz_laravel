@@ -20,6 +20,8 @@ class CreateChartsTable extends Migration
             $table->text('medicines');
             $table->timestamp('published_at');
             $table->timestamps();
+
+            $table->integer('user_id')->unsigned();
         });
     }
 

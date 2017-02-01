@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Chart;
 use Carbon\Carbon;
 use App\Http\Requests\ChartRequest;
-
+use Auth;
 
 class ChartsController extends Controller
 {
@@ -17,8 +17,8 @@ class ChartsController extends Controller
      */
     public function index()
     {
-        $charts = Chart::latest('approved')->approved()->get();
 
+        $charts = Chart::latest('approved')->approved()->get();
         return view('charts.index', compact('charts'));
     }
 
@@ -50,7 +50,9 @@ class ChartsController extends Controller
      */
     public function store(ChartRequest $request)
     {
-        Chart::create($request->all());
+        $chart = new Chart($request->all());
+        Auth::user()->charts()->save($chart);
+
         return redirect('charts');
     }
 

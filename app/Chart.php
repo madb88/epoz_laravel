@@ -10,7 +10,8 @@ class Chart extends Model
       'title',
       'description',
       'medicines',
-      'approved'
+      'approved',
+      'user_id'
     ];
 
     public function scopeApproved($query)
@@ -21,5 +22,13 @@ class Chart extends Model
     public function scopeNotApproved($query)
     {
       $query->where('approved', '=', 0);
+    }
+
+    /**
+     * Chart belongs to USER.
+     */
+    public function user()
+    {
+      return $this->belongsTo('App\User');
     }
 }
