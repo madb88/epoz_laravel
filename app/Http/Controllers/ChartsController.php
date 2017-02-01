@@ -11,6 +11,12 @@ use Auth;
 
 class ChartsController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth', ['except' => ['index','show']]);
+    }
+
     /**
      * Show all approved Charts
      * @return [array] [array of Charts]
@@ -30,7 +36,6 @@ class ChartsController extends Controller
     public function show($id)
     {
         $chart = Chart::findOrFail($id);
-
         return view('charts.show', compact('chart'));
     }
 
