@@ -33,9 +33,8 @@ class ChartsController extends Controller
      * @param  [int] $id
      * @return Response
      */
-    public function show($id)
+    public function show(Chart $chart)
     {
-        $chart = Chart::findOrFail($id);
         return view('charts.show', compact('chart'));
     }
 
@@ -61,14 +60,13 @@ class ChartsController extends Controller
         return redirect('charts');
     }
 
-    public function edit($id)
+    public function edit(Chart $chart)
     {
-      $chart = Chart::findOrFail($id);
 
       return view('charts.edit', compact('chart'));
     }
 
-    public function update($id, ChartRequest $request)
+    public function update(Chart $chart, ChartRequest $request)
     {
       $chart = Chart::findOrFail($id);
       $chart->update($request->all());
